@@ -1,0 +1,382 @@
+{
+  "source": "hs-tracker/src/buffs.js",
+  "buffs": {
+    "1": {
+      "id": 1,
+      "name": "Loot Goblin I",
+      "desc": "+1 Maximum Loot from Enemy Killed",
+      "kind": "buff"
+    },
+    "2": {
+      "id": 2,
+      "name": "Loot Goblin II",
+      "desc": "+2 Maximum Loot from Enemy Killed",
+      "kind": "buff"
+    },
+    "3": {
+      "id": 3,
+      "name": "Rune Master",
+      "desc": "15% + (2.5% per sub difficulty level) Increased Rune Drop Chance",
+      "kind": "buff"
+    },
+    "4": {
+      "id": 4,
+      "name": "Gold Hunger",
+      "desc": "Gold from monster kills increased by 40% + (8.75% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "5": {
+      "id": 5,
+      "name": "Heroic Windfall",
+      "desc": "Heroic Item drop chances increased by 3% + (3% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "6": {
+      "id": 6,
+      "name": "Angelic Fortune",
+      "desc": "Angelic Item drop chances increased by 25% + (7.5% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "7": {
+      "id": 7,
+      "name": "Zephy's Grace",
+      "desc": "Movement Speed increased by 50%",
+      "kind": "buff"
+    },
+    "8": {
+      "id": 8,
+      "name": "Fury of Tempest",
+      "desc": "Attack Speed increased by 60%",
+      "kind": "buff"
+    },
+    "9": {
+      "id": 9,
+      "name": "Rapid Casting",
+      "desc": "Faster Cast Rate increased by 60%",
+      "kind": "buff"
+    },
+    "10": {
+      "id": 10,
+      "name": "Onslaught",
+      "desc": "Attack Damage increased by 100%",
+      "kind": "buff"
+    },
+    "11": {
+      "id": 11,
+      "name": "Nether Surge",
+      "desc": "Magic Skill Damage increased by 40%",
+      "kind": "buff"
+    },
+    "12": {
+      "id": 12,
+      "name": "Relic Keepers",
+      "desc": "Ancient monsters have a 2% chance to drop a relic on death",
+      "kind": "buff"
+    },
+    "13": {
+      "id": 13,
+      "name": "Goblin's Greed",
+      "desc": "Champion+ monsters have a 0.5% chance to summon a Treasure Goblin on death",
+      "kind": "buff"
+    },
+    "14": {
+      "id": 14,
+      "name": "Artifact Digger",
+      "desc": "+55% Magic Find + (5% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "15": {
+      "id": 15,
+      "name": "Artifact Seeker",
+      "desc": "+110% Magic Find + (10% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "16": {
+      "id": 16,
+      "name": "Artifact Excavator",
+      "desc": "+170% Magic Find + (20% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "17": {
+      "id": 17,
+      "name": "Recruit",
+      "desc": "+10% Experience Gain + (2.5% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "18": {
+      "id": 18,
+      "name": "Combat Training",
+      "desc": "+15% Experience Gain + (3.75% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "19": {
+      "id": 19,
+      "name": "Battle Scarred",
+      "desc": "+20% Experience Gain + (5% per sub difficulty level)",
+      "kind": "buff"
+    },
+    "20": {
+      "id": 20,
+      "name": "Clairvoyance",
+      "desc": "All recovery increased by 100% (Includes: Mana per hit, Life per hit, Mana and Life Replenish etc)",
+      "kind": "buff"
+    },
+    "21": {
+      "id": 21,
+      "name": "Aftermath",
+      "desc": "Monsters have a 3% chance to summon a Legion version of them on death",
+      "kind": "buff"
+    },
+    "22": {
+      "id": 22,
+      "name": "Deep Cuts",
+      "desc": "Critical Strike damage increased by 200%",
+      "kind": "buff"
+    },
+    "23": {
+      "id": 23,
+      "name": "Old Town",
+      "desc": "+15% chance for Ancient Packs",
+      "kind": "buff"
+    },
+    "24": {
+      "id": 24,
+      "name": "Terror Zone",
+      "desc": "+25% chance for Ancient Packs",
+      "kind": "buff"
+    },
+    "25": {
+      "id": 25,
+      "name": "Fields of Carnage",
+      "desc": "+30% chance for Ancient Packs",
+      "kind": "buff"
+    }
+  },
+  "debuffs": {
+    "1": {
+      "id": 1,
+      "name": "Dusk's Shroud",
+      "desc": "Light Radius decreased by 20%",
+      "kind": "debuff"
+    },
+    "2": {
+      "id": 2,
+      "name": "Elemental Erosion",
+      "desc": "All Resistances decreased by 75%",
+      "kind": "debuff"
+    },
+    "3": {
+      "id": 3,
+      "name": "Sundered Armor",
+      "desc": "Damage Taken increased by 25%",
+      "kind": "debuff"
+    },
+    "4": {
+      "id": 4,
+      "name": "Vitality Drain",
+      "desc": "Life decreased by 25%",
+      "kind": "debuff"
+    },
+    "5": {
+      "id": 5,
+      "name": "Essence Drain",
+      "desc": "Mana decreased by 25%",
+      "kind": "debuff"
+    },
+    "6": {
+      "id": 6,
+      "name": "Abyssal Gloom",
+      "desc": "Darkness increased by 100%",
+      "kind": "debuff"
+    },
+    "7": {
+      "id": 7,
+      "name": "Skill Debilitation",
+      "desc": "All Skills decreased by 10%",
+      "kind": "debuff"
+    },
+    "8": {
+      "id": 8,
+      "name": "Weakening Essence",
+      "desc": "All Attributes decreased by 20%",
+      "kind": "debuff"
+    },
+    "9": {
+      "id": 9,
+      "name": "Lifeflow Starvation",
+      "desc": "Regeneration reduced",
+      "kind": "debuff"
+    },
+    "10": {
+      "id": 10,
+      "name": "Sanguine Impairment",
+      "desc": "Life Steal decreased by 75%",
+      "kind": "debuff"
+    },
+    "11": {
+      "id": 11,
+      "name": "Arcane Impairment",
+      "desc": "Mana Steal decreased by 75%",
+      "kind": "debuff"
+    },
+    "12": {
+      "id": 12,
+      "name": "Consumed Time",
+      "desc": "Cooldown Recovery decreased by 25%",
+      "kind": "debuff"
+    },
+    "13": {
+      "id": 13,
+      "name": "Absolute Limbo",
+      "desc": "Cooldown Recovery decreased by 50%",
+      "kind": "debuff"
+    },
+    "14": {
+      "id": 14,
+      "name": "Boulder Fall",
+      "desc": "Monsters have a 3% chance to drop a boulder from the sky on death",
+      "kind": "debuff"
+    },
+    "15": {
+      "id": 15,
+      "name": "Lingering Evil",
+      "desc": "Movement Speed reduced by 25%",
+      "kind": "debuff"
+    },
+    "16": {
+      "id": 16,
+      "name": "Fatal Wounds",
+      "desc": "Monsters gain a 10% chance to inflict 2x damage",
+      "kind": "debuff"
+    },
+    "17": {
+      "id": 17,
+      "name": "Bloated Veins",
+      "desc": "Monsters have 70% increased Life",
+      "kind": "debuff"
+    },
+    "18": {
+      "id": 18,
+      "name": "Abnormal Dwelling",
+      "desc": "Monsters have 130% increased Life",
+      "kind": "debuff"
+    },
+    "19": {
+      "id": 19,
+      "name": "Colossal Bloating",
+      "desc": "Monsters have 200% increased Life",
+      "kind": "debuff"
+    },
+    "20": {
+      "id": 20,
+      "name": "Necrosis",
+      "desc": "Your life is drained by 1% every second",
+      "kind": "debuff"
+    },
+    "21": {
+      "id": 21,
+      "name": "Venomous Presence",
+      "desc": "Poison Duration is increased by 200%",
+      "kind": "debuff"
+    },
+    "22": {
+      "id": 22,
+      "name": "Flaming Agony",
+      "desc": "Monsters unleash a Fire Nova on death dealing 50% of their damage",
+      "kind": "debuff"
+    },
+    "23": {
+      "id": 23,
+      "name": "Unholy Agility",
+      "desc": "Monsters gain increased movement and attack speed",
+      "kind": "debuff"
+    },
+    "24": {
+      "id": 24,
+      "name": "Broken Armor",
+      "desc": "You are unable to block attacks and projectiles",
+      "kind": "debuff"
+    },
+    "25": {
+      "id": 25,
+      "name": "Hemorrhage",
+      "desc": "Monster attacks inflict a 4 second stacking bleed for 10% of their damage",
+      "kind": "debuff"
+    },
+    "26": {
+      "id": 26,
+      "name": "Crippling Slow",
+      "desc": "Monster attacks inflict a 50% slow that lasts 2 seconds",
+      "kind": "debuff"
+    }
+  },
+  "zones": {
+    "1": [
+      "Outskirts of Inoya",
+      "Fields of Battle",
+      "The Pumpkin Patch",
+      "Woodhill Plains",
+      "King's Garden",
+      "Witching River"
+    ],
+    "2": [
+      "Crystal Village",
+      "Chilling Lake",
+      "Arctic Tundra",
+      "Snowy Mountains",
+      "The Glacial Trail"
+    ],
+    "3": [
+      "Corrupted Oasis",
+      "Dry Hills",
+      "Mos'Arathim Desert",
+      "Pyramid Level 1",
+      "Pyramid Level 2",
+      "Curacan Hollow"
+    ],
+    "4": [
+      "Old Mining Village",
+      "The Highland Mines",
+      "Corrupted Cave",
+      "The Nightmare",
+      "The Devil's Breach"
+    ],
+    "5": [
+      "Mt. Fuji",
+      "Misty Swamp",
+      "Fuji Coast",
+      "Sea of Karponia",
+      "Temple of Zamjo"
+    ],
+    "6": [
+      "Highland Graveyard",
+      "The Cathedral",
+      "Prison Dungeon",
+      "Steam Train",
+      "The Depths of Hell"
+    ],
+    "7": [
+      "Deep Space",
+      "Event Horizon",
+      "The Black Hole",
+      "Parallel Dimension",
+      "Subconscious Mind",
+      "Shattered Realm"
+    ],
+    "8": [
+      "Forest of the Slain",
+      "Flooded Plains",
+      "Forgotten Caves",
+      "Camp of Souls",
+      "Helheim"
+    ],
+    "9": [
+      "Abyss Jungle",
+      "Shipwreck Cove",
+      "Tormented Reef",
+      "Boreal Island",
+      "Volcanic Island",
+      "Abyss Realm"
+    ]
+  }
+}
