@@ -3,14 +3,18 @@
   "private": true,
   "version": "0.1.0",
   "description": "Hero Siege overlay — Satanic Zone mods, area target drops and item search",
+  "author": "HeroS.ninja",
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {
     "build:data": "node scripts/build-data.mjs",
     "build:capture": "node scripts/build-capture.mjs",
+    "prepare:bin": "node scripts/prepare-bin.mjs",
     "dev": "concurrently -k -n vite,electron -c cyan,magenta \"vite\" \"wait-on tcp:127.0.0.1:5173 && npm run electron:dev\"",
     "electron:dev": "cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .",
     "build": "npm run build:capture && tsc --noEmit && vite build",
+    "dist": "npm run build && npm run prepare:bin && electron-builder --win",
+    "dist:dir": "npm run build && npm run prepare:bin && electron-builder --win --dir",
     "preview": "vite preview",
     "start": "electron ."
   },
@@ -26,8 +30,67 @@
     "concurrently": "^9.1.2",
     "cross-env": "^7.0.3",
     "electron": "^35.2.1",
+    "electron-builder": "^26.15.3",
     "typescript": "~5.8.3",
     "vite": "^5.4.19",
     "wait-on": "^8.0.3"
+  },
+  "build": {
+    "appId": "ninja.heros.overlay",
+    "productName": "HS Ninja Overlay",
+    "copyright": "Copyright © HeroS.ninja",
+    "directories": {
+      "output": "release",
+      "buildResources": "electron/assets"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "bin/",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "electron/assets/**"
+    ],
+    "win": {
+      "icon": "electron/assets/favicon.ico",
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "HS-Ninja-Overlay-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "HS-Ninja-Overlay-${version}-portable.exe"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HS Ninja Overlay",
+      "artifactName": "HS-Ninja-Overlay-Setup-${version}.exe"
+    },
+    "publish": null
   }
 }

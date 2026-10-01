@@ -26,6 +26,7 @@ dist-ssr
 # Electron
 release
 out
+bin
 
 # Native capture
 native/hs-capture/target

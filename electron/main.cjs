@@ -190,12 +190,19 @@ function quitApp() {
   app.quit()
 }
 
+function resolveAsset(...parts) {
+  const inAsar = path.join(__dirname, 'assets', ...parts)
+  const unpacked = inAsar.replace(`${path.sep}app.asar${path.sep}`, `${path.sep}app.asar.unpacked${path.sep}`)
+  if (unpacked !== inAsar && fs.existsSync(unpacked)) return unpacked
+  return inAsar
+}
+
 function resolveTrayIcon() {
   const candidates = [
-    path.join(__dirname, 'assets', 'favicon.ico'),
-    path.join(__dirname, 'assets', 'ico_small.png'),
-    path.join(__dirname, 'assets', 'tray.png'),
-    path.join(__dirname, 'assets', 'logo.png'),
+    resolveAsset('favicon.ico'),
+    resolveAsset('ico_small.png'),
+    resolveAsset('tray.png'),
+    resolveAsset('logo.png'),
   ]
   for (const file of candidates) {
     if (!fs.existsSync(file)) continue
@@ -253,10 +260,9 @@ function createWindow() {
 
   Menu.setApplicationMenu(null)
 
-  const appIconPath = [
-    path.join(__dirname, 'assets', 'logo.png'),
-    path.join(__dirname, 'assets', 'favicon.ico'),
-  ].find((p) => fs.existsSync(p))
+  const appIconPath = [resolveAsset('logo.png'), resolveAsset('favicon.ico')].find((p) =>
+    fs.existsSync(p),
+  )
 
   mainWindow = new BrowserWindow({
     x,

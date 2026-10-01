@@ -13,11 +13,31 @@ let stdoutBuf = ''
 
 function captureBinaryCandidates() {
   const root = path.join(__dirname, '..')
-  return [
+  const list = []
+  // Empacotado (electron-builder extraResources)
+  if (process.resourcesPath) {
+    list.push(
+      path.join(process.resourcesPath, 'bin', 'hs-capture.exe'),
+      path.join(process.resourcesPath, 'hs-capture.exe'),
+    )
+  }
+  // Ao lado do .exe (portable)
+  try {
+    const exeDir = path.dirname(process.execPath)
+    list.push(
+      path.join(exeDir, 'resources', 'bin', 'hs-capture.exe'),
+      path.join(exeDir, 'hs-capture.exe'),
+    )
+  } catch {
+    /* ignore */
+  }
+  // Dev
+  list.push(
+    path.join(root, 'bin', 'hs-capture.exe'),
     path.join(root, 'native', 'hs-capture', 'target', 'release', 'hs-capture.exe'),
     path.join(root, 'native', 'hs-capture', 'target', 'debug', 'hs-capture.exe'),
-    path.join(root, 'bin', 'hs-capture.exe'),
-  ]
+  )
+  return list
 }
 
 function resolveCaptureBinary() {

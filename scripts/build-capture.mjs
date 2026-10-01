@@ -6,18 +6,25 @@ import { fileURLToPath } from 'node:url'
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 const crate = path.join(root, 'native', 'hs-capture')
 const exe = path.join(crate, 'target', 'release', 'hs-capture.exe')
+const force = process.env.HS_FORCE_CAPTURE_BUILD === '1' || process.argv.includes('--force')
 
-if (fs.existsSync(exe)) {
+if (fs.existsSync(exe) && !force) {
   console.log(`hs-capture already built: ${exe}`)
   process.exit(0)
 }
 
 const isWin = process.platform === 'win32'
 const cargo = isWin ? 'cargo.exe' : 'cargo'
-const vcvars = String.raw`C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat`
+const vcvarsCandidates = [
+  String.raw`C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat`,
+  String.raw`C:\Program Files\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat`,
+  String.raw`C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat`,
+  String.raw`C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat`,
+]
+const vcvars = vcvarsCandidates.find((p) => fs.existsSync(p))
 
 let result
-if (isWin && fs.existsSync(vcvars)) {
+if (isWin && vcvars) {
   result = spawnSync(
     'cmd.exe',
     ['/c', `"${vcvars}" && cd /d "${crate}" && cargo build --release`],
