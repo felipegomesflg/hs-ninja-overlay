@@ -81,6 +81,12 @@ export interface HsOverlayApi {
   /** Encerra de verdade (também disponível no tray) */
   quit: () => Promise<void>
   openPath: (target: string) => Promise<void>
+  /** Abre URL no navegador */
+  openExternal: (url: string) => Promise<{ ok: boolean; error?: string }>
+  /** true se wpcap.dll / Npcap estiver instalado */
+  checkNpcap: () => Promise<{ installed: boolean; url: string }>
+  /** Diálogo de aviso + opcional redirect para npcap.com */
+  promptNpcapInstall: () => Promise<{ installed: boolean; opened: boolean }>
   /** true = cliques passam para o jogo; false = overlay captura o mouse */
   setMouseIgnore: (ignore: boolean) => Promise<void>
   /** Liga foco de teclado na overlay */

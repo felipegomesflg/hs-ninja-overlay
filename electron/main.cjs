@@ -528,3 +528,51 @@ ipcMain.handle('window:minimize', () => hideOverlay())
 ipcMain.handle('window:close', () => hideOverlay())
 ipcMain.handle('window:quit', () => quitApp())
 ipcMain.handle('shell:open-path', (_event, target) => shell.showItemInFolder(target))
+
+const NPCAP_URL = 'https://npcap.com/'
+
+function isNpcapInstalled() {
+  if (process.platform !== 'win32') return true
+  const root = process.env.SystemRoot || 'C:\\Windows'
+  const candidates = [
+    path.join(root, 'System32', 'Npcap', 'wpcap.dll'),
+    path.join(root, 'System32', 'wpcap.dll'),
+    path.join(root, 'SysWOW64', 'npcap', 'wpcap.dll'),
+    path.join(root, 'SysWOW64', 'wpcap.dll'),
+  ]
+  return candidates.some((p) => fs.existsSync(p))
+}
+
+ipcMain.handle('npcap:check', () => ({
+  installed: isNpcapInstalled(),
+  url: NPCAP_URL,
+}))
+
+ipcMain.handle('shell:open-external', async (_event, url) => {
+  const target = String(url || '').trim()
+  if (!/^https?:\/\//i.test(target)) return { ok: false, error: 'URL inválida' }
+  await shell.openExternal(target)
+  return { ok: true }
+})
+
+ipcMain.handle('npcap:prompt-install', async () => {
+  if (isNpcapInstalled()) {
+    return { installed: true, opened: false }
+  }
+  const result = await dialog.showMessageBox(mainWindow ?? undefined, {
+    type: 'warning',
+    buttons: ['Abrir npcap.com', 'Agora não'],
+    defaultId: 0,
+    cancelId: 1,
+    title: 'Npcap necessário',
+    message: 'Npcap não encontrado',
+    detail:
+      'A captura ao vivo (sala, MF, drops) precisa do Npcap instalado.\n\nDeseja abrir https://npcap.com/ para baixar?',
+    noLink: true,
+  })
+  if (result.response === 0) {
+    await shell.openExternal(NPCAP_URL)
+    return { installed: false, opened: true }
+  }
+  return { installed: false, opened: false }
+})

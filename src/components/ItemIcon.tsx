@@ -1,6 +1,9 @@
 /** Icon crop box from the items sprite sheet: [x, y, w, h] */
 export type IconBox = [number, number, number, number]
 
+/** Relativo ao index.html — funciona no Vite e no Electron (file://). */
+const DEFAULT_SHEET = `${import.meta.env.BASE_URL}img/items.webp`
+
 interface Props {
   icon: IconBox | null | undefined
   sheet: { w: number; h: number }
@@ -8,7 +11,7 @@ interface Props {
   src?: string
 }
 
-export function ItemIcon({ icon, sheet, box = 28, src = '/img/items.webp' }: Props) {
+export function ItemIcon({ icon, sheet, box = 28, src = DEFAULT_SHEET }: Props) {
   if (!icon) {
     return <span className="item-icon item-icon--empty" style={{ width: box, height: box }} />
   }
@@ -23,7 +26,7 @@ export function ItemIcon({ icon, sheet, box = 28, src = '/img/items.webp' }: Pro
         style={{
           width: w,
           height: h,
-          backgroundImage: `url(${src})`,
+          backgroundImage: `url(${JSON.stringify(src)})`,
           backgroundPosition: `${-x}px ${-y}px`,
           backgroundSize: `${sheet.w}px ${sheet.h}px`,
           transform: `translate(-50%, -50%) scale(${scale})`,

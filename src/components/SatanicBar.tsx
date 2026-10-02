@@ -8,6 +8,9 @@ interface Props {
   refreshing?: boolean
   szDropsOpen?: boolean
   onToggleSzDrops?: () => void
+  /** Mostra aviso se Npcap não estiver instalado */
+  npcapMissing?: boolean
+  onNpcapWarning?: () => void | Promise<void>
 }
 
 export function SatanicBar({
@@ -16,6 +19,8 @@ export function SatanicBar({
   refreshing = false,
   szDropsOpen = false,
   onToggleSzDrops,
+  npcapMissing = false,
+  onNpcapWarning,
 }: Props) {
   const buffs = (zone.buffs || []).map((id) => {
     const info = getBuff(id)
@@ -41,6 +46,7 @@ export function SatanicBar({
     zone.area ? `sala: ${zone.area} (${roomLabel(zone.area)})` : 'sala: —',
     zone.path ? `arquivo: ${zone.path}` : null,
     !zone.ok && zone.error ? zone.error : null,
+    npcapMissing ? 'Npcap não instalado — captura ao vivo indisponível' : null,
   ]
     .filter(Boolean)
     .join('\n')
@@ -50,6 +56,20 @@ export function SatanicBar({
       <div className="sz-chip__text">
         <div className="sz-chip__title-row">
           <span className="sz-chip__name">{titleLine}</span>
+          {npcapMissing ? (
+            <button
+              type="button"
+              className="sz-chip__npcap-warn"
+              onClick={(e) => {
+                e.stopPropagation()
+                void onNpcapWarning?.()
+              }}
+              aria-label="Npcap não instalado — clique para baixar"
+              title="Npcap não encontrado. Clique para abrir npcap.com"
+            >
+              ⚠
+            </button>
+          ) : null}
           {onRefresh ? (
             <button
               type="button"

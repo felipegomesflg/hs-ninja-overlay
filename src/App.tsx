@@ -70,6 +70,7 @@ export default function App() {
   const [controlsOpen, setControlsOpen] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
   const [unreadDrops, setUnreadDrops] = useState(0)
+  const [npcapMissing, setNpcapMissing] = useState(false)
   const knownDropIds = useRef(new Set<string>())
   const dropsPrimed = useRef(false)
 
@@ -118,12 +119,18 @@ export default function App() {
     api.getSettings().then(setSettings)
     api.readZoneNow().then(applyZone)
 
+    const refreshNpcap = () => {
+      void api.checkNpcap?.().then((s) => setNpcapMissing(!s.installed))
+    }
+    refreshNpcap()
+
     const offZone = api.onZoneUpdate(applyZone)
     const offSettings = api.onSettingsUpdate(setSettings)
 
     // Poll lento só como rede de segurança — hot path é stdout HSLIVE → IPC.
     const poll = window.setInterval(() => {
       void api.readZoneNow().then(applyZone)
+      refreshNpcap()
     }, 5000)
 
     return () => {
@@ -168,6 +175,13 @@ export default function App() {
     }
   }
 
+  const promptNpcap = async () => {
+    const api = window.hsOverlay
+    if (!api?.promptNpcapInstall) return
+    const result = await api.promptNpcapInstall()
+    if (result.installed) setNpcapMissing(false)
+  }
+
   const togglePanel = (mode: Exclude<PanelMode, null>) => {
     setPanel((prev) => (prev === mode ? null : mode))
   }
@@ -182,6 +196,8 @@ export default function App() {
             refreshing={refreshing}
             szDropsOpen={szDropsOpen}
             onToggleSzDrops={() => setSzDropsOpen((v) => !v)}
+            npcapMissing={npcapMissing}
+            onNpcapWarning={promptNpcap}
           />
           <SzDropsPanel
             open={szDropsOpen}

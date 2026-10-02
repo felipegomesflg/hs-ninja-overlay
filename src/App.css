@@ -94,6 +94,37 @@
   animation: sz-spin 0.6s linear infinite;
 }
 
+.sz-chip__npcap-warn {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 6px;
+  background: rgba(230, 160, 40, 0.2);
+  color: #f0c040;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  animation: npcap-pulse 1.6s ease-in-out infinite;
+}
+
+.sz-chip__npcap-warn:hover {
+  background: rgba(230, 160, 40, 0.35);
+  color: #ffd866;
+}
+
+@keyframes npcap-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
 @keyframes sz-spin {
   to {
     transform: rotate(360deg);
