@@ -1,7 +1,7 @@
 {
   "name": "hs-ninja-overlay",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Hero Siege overlay — Satanic Zone mods, area target drops and item search",
   "author": "HeroS.ninja",
   "type": "module",
@@ -31,6 +31,7 @@
     "cross-env": "^7.0.3",
     "electron": "^35.2.1",
     "electron-builder": "^26.15.3",
+    "png-to-ico": "^2.1.8",
     "typescript": "~5.8.3",
     "vite": "^5.4.19",
     "wait-on": "^8.0.3"
@@ -41,7 +42,7 @@
     "copyright": "Copyright © HeroS.ninja",
     "directories": {
       "output": "release",
-      "buildResources": "electron/assets"
+      "buildResources": "build"
     },
     "files": [
       "dist/**/*",
@@ -62,7 +63,7 @@
       "electron/assets/**"
     ],
     "win": {
-      "icon": "electron/assets/favicon.ico",
+      "icon": "build/icon.ico",
       "target": [
         {
           "target": "portable",

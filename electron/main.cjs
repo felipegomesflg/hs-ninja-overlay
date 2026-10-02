@@ -5,6 +5,10 @@ const { startLiveCapture, stopLiveCapture, captureStatus, onCaptureLive } = requ
 const { watchSatanicFile, parseSatanicText } = require('./watcher.cjs')
 
 app.setName('hs-ninja-overlay')
+// Sem isso o Windows agrupa/mostra o ícone do processo pai (ex.: Cursor).
+if (process.platform === 'win32') {
+  app.setAppUserModelId('ninja.heros.overlay')
+}
 
 const isDev = Boolean(process.env.VITE_DEV_SERVER_URL)
 const SETTINGS_PATH = path.join(app.getPath('userData'), 'settings.json')
@@ -199,23 +203,36 @@ function resolveAsset(...parts) {
 
 function resolveTrayIcon() {
   const candidates = [
-    resolveAsset('favicon.ico'),
-    resolveAsset('ico_small.png'),
+    resolveAsset('icon.ico'),
+    resolveAsset('tray-32.png'),
     resolveAsset('tray.png'),
+    resolveAsset('tray-16.png'),
     resolveAsset('logo.png'),
+    resolveAsset('favicon.ico'),
   ]
   for (const file of candidates) {
     if (!fs.existsSync(file)) continue
     let icon = nativeImage.createFromPath(file)
     if (icon.isEmpty()) continue
-    if (process.platform === 'win32' && !file.endsWith('.ico')) {
-      icon = icon.resize({ width: 16, height: 16 })
+    // Bandeja Windows: 16px nítido
+    if (process.platform === 'win32') {
+      const size = icon.getSize()
+      if (size.width !== 16 || size.height !== 16) {
+        icon = icon.resize({ width: 16, height: 16, quality: 'best' })
+      }
     }
     return icon
   }
-  return nativeImage.createFromDataURL(
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAKElEQVQ4T2NkYGD4z0ABYBzVMKoBWIPhaDUY1QDYNRiNBqMagD0aABl5AwFnT7fGAAAAAElFTkSuQmCC',
-  )
+  // Fallback HeroS mínimo (não ícone do Electron/Cursor)
+  return nativeImage.createFromPath(resolveAsset('logo.png'))
+}
+
+function resolveAppIconPath() {
+  return [
+    resolveAsset('icon.ico'),
+    resolveAsset('logo.png'),
+    resolveAsset('favicon.ico'),
+  ].find((p) => fs.existsSync(p))
 }
 
 function createTray() {
@@ -260,9 +277,7 @@ function createWindow() {
 
   Menu.setApplicationMenu(null)
 
-  const appIconPath = [resolveAsset('logo.png'), resolveAsset('favicon.ico')].find((p) =>
-    fs.existsSync(p),
-  )
+  const appIconPath = resolveAppIconPath()
 
   mainWindow = new BrowserWindow({
     x,

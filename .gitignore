@@ -30,3 +30,6 @@ bin
 
 # Native capture
 native/hs-capture/target
+
+# Icon intermediates (keep icon.ico / tray PNGs)
+electron/assets/icon-*.png
